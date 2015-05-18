@@ -1,0 +1,67 @@
+body {
+	font-family: 'Verdana';
+}
+
+#header {
+	width: 101%;
+	height: 75px;
+	margin-left: -1em;
+	margin-top: -1em;
+	position: fixed;
+	background-color: #808080;
+	z-index: 1;
+	color: white;
+}
+
+#header-name {
+	font-family: 'Trebuchet MS';
+	margin-left: 2%;
+	font-size: 1.5em;
+	float:left;
+}
+
+.button {
+	//background-color: #CC4040;
+	height: 65px;
+	width: 75px;
+	margin-top: 0.4em;
+	text-align: center;
+	border-radius: 0.2em;
+	position: relative;
+	float: right;
+}
+
+img {
+	//width: 100%;
+	height: 100%;
+}
+
+.button:hover{
+	background-color: #FF8080;
+}
+
+#button-info {
+	right: 1%;
+}
+
+#button-calc {
+	right: 1%;
+	//margin-left: 20px;
+}
+
+.container {
+	width: 87.5%;
+	height: 2000px;
+	margin-left: 6.05%;
+	margin-top: 85px;
+	border-radius: 2em;
+	border: 1px solid #80FFFF;
+	padding: 5px;
+	text-align: center;
+	font-size: 1.37em;
+	position: absolute;
+}
+
+.container * {
+	position: relative;
+}
