@@ -39,13 +39,14 @@ img {
 }
 
 .button-header:hover{
+	cursor: pointer;
 	background-color: #FF8080;
-	top: 1px;
+	top: 1.5px;
 }
 
 .button-header:active {
 	background-color: #BB8080;
-	top: 2px;
+	top: 3px;
 }
 
 #button-info {
