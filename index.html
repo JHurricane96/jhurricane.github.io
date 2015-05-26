@@ -9,31 +9,54 @@
   </head>
   <body>
   	<header id="header">
-  		<p id="header-name">Arun's Page</p>
+  		<span id="header-name">Arun's Page</span>
   		<div id="button-info" class="button-header"><img src="tab-text.png" /></div>
   		<div id="button-calc" class="button-header"><img src="tab-calc.png" /></div>
   	</header>
-    <div class="container-text info">
-    	<h3>Welcome to my world of depravity!</h3>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-      <section id="trial">
-        <div class="holder-rotate">
+    <div class="info">
+      <header id="container-pagebuttons">
+        <button id="pageleft" class="pageturn">&lt</button>
+        <button id="pageright" class="pageturn">&gt</button>
+      </header>
+      <div id="pageindicators"><div class="currentpage"></div><div></div></div>
+      <div id="pages" style="width: 200%">
+        <div id="container-text-1" class="container-text">
+        	<h3>Welcome to my world of depravity!</h3>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
           <p>Welcome to my world of depravity!</p>
           <p>Welcome to my world of depravity!</p>
           <p>Welcome to my world of depravity!</p>
           <p>Welcome to my world of depravity!</p>
-        </div>  
-      </section>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
-    	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        	<p>Welcome to my world of depravity!</p>
+        </div>
+        <div id="container-text-1" class="container-text">
+          <h3>Welcome to my world of depravity!</h3>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+          <p>Welcome to my world of depravity!</p>
+        </div>
+      </div>
     </div>
     <div id="container-calc" class="calc">
       <div id="container-screen">
@@ -41,30 +64,56 @@
         <div id="calc-button-delete">X</div>
       </div>
       <div id="container-buttons">
-        <table id="buttons">
+        <table class="buttons normal">
           <tr>
-            <td><div class="button">7</div></td>
-            <td><div class="button">8</div></td>
-            <td><div class="button">9</div></td>
-            <td><div class="button">&divide</div></td>
+            <td><button class="calc">7</button></td>
+            <td><button class="calc">8</button></td>
+            <td><button class="calc">9</button></td>
+            <td><button class="calc">&divide</button></td>
           </tr>
           <tr>
-            <td><div class="button">4</div></td>
-            <td><div class="button">5</div></td>
-            <td><div class="button">6</div></td>
-            <td><div class="button">&times</div></td>
+            <td><button class="calc">4</button></td>
+            <td><button class="calc">5</button></td>
+            <td><button class="calc">6</button></td>
+            <td><button class="calc">&times</button></td>
           </tr>
           <tr>
-            <td><div class="button">1</div></td>
-            <td><div class="button">2</div></td>
-            <td><div class="button">3</div></td>
-            <td><div class="button">-</div></td>
+            <td><button class="calc">1</button></td>
+            <td><button class="calc">2</button></td>
+            <td><button class="calc">3</button></td>
+            <td><button class="calc">-</button></td>
           </tr>
           <tr>
-            <td><div class="button">.</div></td>
-            <td><div class="button">0</div></td>
-            <td><div id="calc-button-equals" class="button">=</div></td>
-            <td><div class="button">+</div></td>
+            <td><button class="calc">.</button></td>
+            <td><button class="calc">0</button></td>
+            <td><button id="calc-button-equals" class="calc">=</button></td>
+            <td><button class="calc">+</button></td>
+          </tr>
+        </table>
+        <table class="buttons science">
+          <tr>
+            <td><button class="button">sin</button></td>
+            <td><button class="button">cos</button></td>
+            <td><button class="button">tan</button></td>
+            <td><button class="button">&divide</button></td>
+          </tr>
+          <tr>
+            <td><button class="button">log</button></td>
+            <td><button class="button">ln</button></td>
+            <td><button class="button">6</button></td>
+            <td><button class="button">&times</button></td>
+          </tr>
+          <tr>
+            <td><button class="button">1</button></td>
+            <td><button class="button">2</button></td>
+            <td><button class="button">3</button></td>
+            <td><button class="button">-</button></td>
+          </tr>
+          <tr>
+            <td><button class="button">(</button></td>
+            <td><button class="button">)</button></td>
+            <td><button class="button">=</button></td>
+            <td><button class="button">+</button></td>
           </tr>
         </table>
       </div>

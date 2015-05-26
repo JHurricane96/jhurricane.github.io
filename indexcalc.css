@@ -1,22 +1,38 @@
 .calc {
 	display: none; 
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media (orientation: landscape) {
+	.buttons {
+		width: 100%;
+	}
+}
+
+@media (orientation: portrait) {
+	.buttons {
+		width: 100%;
+	}
 }
 
 #container-calc {
-	height: calc(100% - 75px);
+	height: calc(100% - 60px);
 	width: 100%;
-	margin-top: 75px;
+	margin-top: 60px;
 }
 
 #container-screen {
 	height: 25%;
-	background-color: #DDDDDD;
+	background-color: #F0F0D0;
 }
 
 #screen {
 	height: 100%;
-	width: 84%;
-	background-color: #DDDDDD;
+	width: 75%;
+	background-color: #F0F0D0;
 	border: 0;
 	padding: 0;
 	font-size: 10vmin;
@@ -27,9 +43,9 @@
 
 #calc-button-delete {
 	height: 100%;
-	width: 10%;
+	width: 11%;
 	border-radius: 1px;
-	margin-right: 3%;
+	margin-right: 7%;
 	float: right;
 	text-align: center;
 	color: white;
@@ -45,9 +61,16 @@
 	outline: none;
 }
 
+@keyframes calc-button-delete-hover {
+	from {color: white;}
+	to {color: #FF8080;}
+}
+
 #calc-button-delete:hover {
-	color: #FF8080;
 	cursor: pointer;
+	animation-name: calc-button-delete-hover;
+	animation-duration: 0.3s;
+	color: #FF8080;
 }
 
 #calc-button-delete:active {
@@ -57,17 +80,20 @@
 }
 
 #container-buttons {
-	width: calc(100% - 10vmin);
+	width: 100%;
 	height: 70%;
 	padding-top: 0.5%;
 	padding-bottom: 0.5%;
 }
 
-#buttons {
-	width: 100%;
+.buttons {
 	height: 100%;
 	margin: 0px;
-	font-size: 7vmin;
+	float: left;
+}
+
+.science {
+	display: none;
 }
 
 td {
@@ -75,27 +101,41 @@ td {
 	width: 25%;
 }
 
-.button {
+button.calc {
 	position: relative;
 	background-color: white;
 	height: 80%;
 	width: 80%;
+	font-size: 6vmin;
 	border-radius: 100%;
+	border: 0;
+	padding: 0;
 	margin-left: auto;
 	margin-right: auto;
-	box-shadow: 0 2px 5px #AAAAAA;
+	box-shadow: 0 2px 5px #C8C8C8;
 	text-align: center;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.button:hover {
-	cursor: pointer;
-	background-color: #EEEEEE;
+@keyframes button-hover {
+	from {background-color: white;}
+	to {background-color: #F0F0F0;}
 }
 
-.button:active {
-	box-shadow: inset 0 2px 5px #AAAAAA;
+button.calc:hover {
+	animation-name: button-hover;
+	animation-duration: 0.3s;
+	cursor: pointer;
+	background-color: #F0F0F0;
+}
+
+button.calc:active {
+	box-shadow: inset 0 2px 5px #C8C8C8;
 	padding-top: 1vmin;
+}
+
+button.calc:focus {
+	outline: none;
 }
