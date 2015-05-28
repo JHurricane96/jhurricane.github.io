@@ -1,17 +1,21 @@
 function events() {
+
 	var displayInfoButton = document.getElementById('button-info');	
 	var displayCalcButton = document.getElementById('button-calc');
+	var squeezeTime = 600;
 
-	var infos = document.getElementsByClassName('info');
-	var calcs = document.getElementsByClassName('calc');
+	var infoContainer = document.getElementById('container-info');
+	var calcContainer = document.getElementById('container-calc');
 	var html = document.querySelector('html');
 
+	var pageTurnersContainer = document.getElementById('container-pagebuttons')
 	var pageLeft = document.querySelector('button#pageleft');
 	var pageRight = document.querySelector('button#pageright');
+	var pageIndicators = document.querySelectorAll('#pageindicators *');
+	var page1 = document.getElementById('page1');
 	var pageNo = 1;
 	var pageLeftLimit = 1;
-	var pageRightLimit = 2;
-	var pageTurnSpeed = 1;
+	var pageRightLimit = 4;
 
 	var buttonPlace = document.getElementById('container-buttons');
 	var calcDeleteButton = document.getElementById('calc-button-delete');
@@ -125,45 +129,57 @@ function events() {
 	}
 	
 	function displayCalc() {
-		document.body.style.height = "100%";
-		html.style.height = "100%";
-		html.style.overflowY = "hidden";
-
-		infos = Array.prototype.slice.call(infos, 0);
-		calcs = Array.prototype.slice.call(calcs, 0);
-
-		infos.forEach(function(elt) {
-			elt.style.display = "none";
-		});
-		calcs.forEach(function(elt) {
-			elt.style.display = "block";
-		});
-
-		if (!calcButtonsResized) {
-			_resizeCalcButtons();
-			calcButtonsResized = true;
-		}
-
-		if (calcInput.value=="") {
-			calcInput.value = 0;
-			calcReady = false;
-		}
+		//calcContainer.style.opacity = 0;
+		pageTurnersContainer.style.position = "static";
 
 		displayCalcButton.removeEventListener("click", displayCalc);
 		pageRight.removeEventListener("click", pageTurnRight);
-		pageLeft.addEventListener("click", pageTurnLeft);
-		calcInput.addEventListener("keypress", calcKeyboardInput);
-		buttonPlace.addEventListener("click", calcButtonPress);
-		calcDeleteButton.addEventListener("click", calcDeleteButtonPress);
-		window.addEventListener("resize", resizeCalcButtons);
-		displayInfoButton.addEventListener("click", displayInfo);
+		pageLeft.removeEventListener("click", pageTurnLeft);
+
+		animate(function (t) {return t;}, squeezeTime/2, function (x) {
+			infoContainer.style.width = 100*(1 - x) + '%';
+		}, cleanup1);
+
+		function cleanup1() {
+			document.body.style.height = "100%";
+			html.style.height = "100%";
+			html.style.overflowY = "hidden";
+			infoContainer.style.display = "none";
+			calcContainer.style.display = "block";
+
+			if (calcInput.value=="") {
+				calcInput.value = 0;
+				calcReady = false;
+			}
+
+			_resizeCalcButtons();
+
+			animate(bounce, squeezeTime*1.5, function (x) {
+				calcContainer.style.width = x*100 + '%';
+				_resizeCalcButtons();
+			}, cleanup2);
+		}
+
+		function cleanup2() {
+			if (!calcButtonsResized) {
+				_resizeCalcButtons();
+				calcButtonsResized = true;
+			}
+
+
+			calcInput.addEventListener("keypress", calcKeyboardInput);
+			buttonPlace.addEventListener("click", calcButtonPress);
+			calcDeleteButton.addEventListener("click", calcDeleteButtonPress);
+			window.addEventListener("resize", resizeCalcButtons);
+			displayInfoButton.addEventListener("click", displayInfo);
+			_resizeCalcButtons();
+		}
 	}
 
-	function move(x0, xfromt, duration, xToMovement, cleanup) {
-		var x0 = x0;
+	function animate(xfromt, duration, xToMovement, cleanup) {
 		var t0 = new Date;
 
-		var animate = setInterval(function () {
+		var _animate = setInterval(function () {
 			var t = (new Date - t0)/duration;				
 			if (t>1)
 				t=1;
@@ -173,7 +189,7 @@ function events() {
 			xToMovement(x);
 			
 			if (t==1) {
-				clearInterval(animate);
+				clearInterval(_animate);
 				cleanup()
 			}
 		}, 10);
@@ -189,12 +205,27 @@ function events() {
 		}
 		return 1-reverseBounce(1-t);
 	}
+
+	function easeInOut(t) {
+		function x (t) {
+			return 0.5-Math.sqrt(0.25-t*t);
+		}
+
+		if (t<0.5)
+			return x(t);
+		else
+			return 1-x(1-t);
+	}
+
+	function easeOut(t) {
+		return Math.sqrt(1-Math.pow(1-t, 2));
+	}
+
 	function pageTurnLeft() {
 		if (pageNo==pageLeftLimit)
 			return;
 
 		var pageTurners = document.getElementsByClassName('pageturn');
-		var pageIndicators = document.querySelectorAll('#pageindicators *');
 		pageTurners = Array.prototype.slice.call(pageTurners, 0);
 		pageTurners.forEach(function (elt) {
 			elt.disabled = true;
@@ -221,7 +252,7 @@ function events() {
 			});
 		}
 
-		move(x0, bounce, 1500, xToMarginLeft, cleanup);
+		animate(bounce, 1500, xToMarginLeft, cleanup);
 		
 		pageNo--;
 		pageIndicators[pageNo-1].className = 'currentpage';
@@ -232,7 +263,6 @@ function events() {
 			return;
 
 		var pageTurners = document.getElementsByClassName('pageturn');
-		var pageIndicators = document.querySelectorAll('#pageindicators *');
 		pageTurners = Array.prototype.slice.call(pageTurners, 0);
 		pageTurners.forEach(function (elt) {
 			elt.disabled = true;
@@ -259,44 +289,63 @@ function events() {
 			});
 		}
 
-		move(x0, bounce, 1500, xToMarginLeft, cleanup);
+		animate(bounce, 1500, xToMarginLeft, cleanup);
 		
 		pageNo++;
 		pageIndicators[pageNo-1].className = 'currentpage';
 	}
 
+	function onInfoResize() {
+		page1.style.marginTop = Math.floor((window.innerHeight - pageRight.offsetHeight - 60)/2 - page1.offsetHeight) + 'px';
+		if (parseInt(page1.style.marginTop)<0)
+			page1.style.marginTop=0;
+
+		if(window.innerHeight>window.innerWidth) {
+			pages.style.marginLeft = '0';
+			pageIndicators[pageNo-1].className = '';
+			pageNo = 1;
+			console.log(pageNo);
+			pageIndicators[0].className = 'currentpage';
+		}
+
+	}
+
 	function displayInfo() {
-		document.body.style.height = "";
-		html.style.height = "";
-		html.style.overflowY = "";
-
-		calcs = Array.prototype.slice.call(calcs, 0);
-		infos = Array.prototype.slice.call(infos, 0);
-
-		calcs.forEach(function(elt) {
-			elt.style.display = "none";
-		});
-		infos.forEach(function(elt) {
-			elt.style.display = "block";
-		});
+		//infoContainer.style.opacity = 0;
 
 		displayInfoButton.removeEventListener("click", displayInfo);
 		calcInput.removeEventListener("keypress", calcKeyboardInput);
 		buttonPlace.removeEventListener("click", calcButtonPress);
 		calcDeleteButton.removeEventListener("click", calcDeleteButtonPress);
-		window.removeEventListener("resize", resizeCalcButtons);
-		displayCalcButton.addEventListener("click", displayCalc);
-		pageRight.addEventListener("click", pageTurnRight);
-		pageLeft.addEventListener("click", pageTurnLeft);
+
+		animate(function (t) {return t;}, squeezeTime/3, function (x) {calcContainer.style.width = 100*(1 - x) + '%';}, cleanup1);
+
+		function cleanup1() {
+			document.body.style.height = "";
+			html.style.height = "";
+			html.style.overflowY = "";
+			calcContainer.style.display = "none";
+			infoContainer.style.display = "block";
+			onInfoResize();
+			animate(bounce, squeezeTime*1.5, function (x) {infoContainer.style.width = 100*x + '%';}, cleanup2);
+		}
+
+		function cleanup2() {
+			window.removeEventListener("resize", resizeCalcButtons);
+			displayCalcButton.addEventListener("click", displayCalc);
+			pageRight.addEventListener("click", pageTurnRight);
+			pageLeft.addEventListener("click", pageTurnLeft);
+			window.addEventListener("resize", onInfoResize);
+			pageTurnersContainer.style.position = "fixed";
+		}
 	}
 
+	onInfoResize();
+	window.addEventListener("resize", onInfoResize);
 	displayCalcButton.addEventListener("click", displayCalc);
 	pageRight.addEventListener("click", pageTurnRight);
 	pageLeft.addEventListener("click", pageTurnLeft);
+	infoContainer.style.opacity = 1.0;
 }
 
-function main () {
-	events();
-}
-
-window.onload = main;
+window.onload = events;

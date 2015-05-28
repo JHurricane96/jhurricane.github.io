@@ -1,183 +1,103 @@
 html, body {
-	//width: 100%;
-	overflow-x: hidden;
 	padding: 0px;
 	margin: 0px;
 }
 
+html {
+	height: 100%;
+	//width: 100%;
+}
+
 body {
 	font-family: 'Verdana';
+	//height: -webkit-max-content;
+	//height: -moz-max-content;
+	//height: max-content;
 }
 
 @media (orientation: portrait) {
-	.container-text{
+	.container-page{
 		float: none;
-	}
-
-	#container-pagebuttons {
-		display: none;
+		margin-top: 70px;
+		padding-bottom: 20px;
+		border-bottom: 1px groove;
 	}
 }
 
 @media (orientation: landscape) {
-	.container-text{
+	.container-page{
 		float: left;
-	}
-
-	#container-pagebuttons {
-		display: block;
+		margin-top: 0px;
+		padding-bottom: 0px;
+		border-bottom: 0;
 	}
 }
 
-#header {
+#container-info {
 	width: 100%;
-	height: 60px;
-	position: fixed;
-	//background-color: #D0C0B0;
-	background-color: #404080;
-	z-index: 1;
-	color: white;
-}
-
-#header-name {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-	font-family: 'Trebuchet MS';
-	margin-left: 23px;
-	font-size: 1.5em;
-	float:left;
-}
-
-.button-header {
-	height: 55px;
-	width: 55px;
-	border-radius: 0.2em;
-	position: relative;
-	float: right;
-}
-
-img {
-	height: 100%;
-}
-
-@keyframes button-header-hover {
-	from {background-color: inherit;}
-	to {background-color: #8080FF;}
-}
-
-.button-header:hover{
-	animation-name: button-header-hover;
-	animation-duration: 0.3s;
-	cursor: pointer;
-	background-color: #8080FF;
-	top: 1.5px;
-}
-
-.button-header:active {
-	background-color: #8080AA;
-	top: 3px;
-}
-
-#button-info {
-	right: 1.5%;
-}
-
-#button-calc {
-	right: 3%;
-}
-
-#container-pagebuttons {
-	position: fixed;
+	//height: 100%;
 	margin: auto;
-	width: 98%;
-}
-
-button.pageturn {
-	background-color: white;
-	height: 7vmin;
-	width: 7vmin;
-	font-size: 6vmin;
-	border-radius: 100%;
-	border: 0;
-	padding: 0;
-	margin-left: auto;
-	margin-right: auto;
-	box-shadow: 5px 0 5px #C8C8C8;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-button.pageturn:hover {
-	animation-name: button-hover;
-	animation-duration: 0.3s;
-	cursor: pointer;
-	background-color: #F0F0F0;
-}
-
-button.pageturn:active {
-	box-shadow: inset 5px 0 5px #C8C8C8;
-}
-
-button.pageturn:focus {
-	outline: none;
-}
-
-button#pageleft {
-	float: left;
-}
-
-button#pageright {
-	float: right;
-}
-
-#pageindicators {
-	height: 7vmin;
-	//width: 10%;
-	margin: auto;
-	//background-color: blue;
-	float: left;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
-
-#pageindicators div {
-	float: left;
-	border-radius: 100%;
-	margin-left: 3px;
-	border: 1px solid black;
-	width: 7px;
-	height: 7px;
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-	left: 50%;
-	transform: translateX(-50%);
-}
-
-#pageindicators .currentpage {
-	background-color: #CC4040;
-}
-
-.info {
-	width: 98%;
-	margin: auto;
-	margin-top: 70px;
+	margin-top: 75px;
 	overflow-x: hidden;
 }
 
 #pages {
-	margin-top: 30px;
+	width: 400%;
+	//height: 100%;
+	margin-top: 50px;
+	//border: 1px solid black;
+}
+
+#pages::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.container-page {
+	height: 100%;
+	width: calc(100% / 4);
+	font-size: 1.37em;
+	//border: 1px solid black;
+}
+
+#page1 {
+	text-align: center;
+}
+
+#page2 {
+	text-align: center;
+}
+
+#page3 {
+	text-align: center;
+}
+
+#page1 h1 {
+	font-size: 15vmin;
+}
+
+#page4 h2 {
+	text-align: center;
+}
+
+h2 {
+	color: white;
+}
+
+#page4 .field {
+	color: white;
+}
+
+#page4 img {
+	max-width: 50%;
+	height: auto;
 }
 
 .container-text {
-	//height: 100%;
-	width: 50%;
-	border-radius: 1em;
-	//border: 1px solid #80FFFF;
-	text-align: center;
-	font-size: 1.37em;
+	margin: auto;
+	width: calc(100% - 40vmin);
+	background-color: rgba(198, 172, 116, 1);
+	padding: 4vmin;
+	border-radius: 3px;
 }

@@ -1,0 +1,93 @@
+@media (orientation: portrait) {
+	#container-pagebuttons {
+		display: none;
+	}
+
+	#pageindicators {
+		display: none;
+	}
+}
+
+@media (orientation: landscape) {
+	#container-pagebuttons {
+		display: block;
+	}
+
+	#pageindicators {
+		display: block;
+	}
+}
+
+#container-pagebuttons {
+	position: fixed;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+button.pageturn {
+	background-color: #404080;
+	height: 7vmin;
+	width: 7vmin;
+	font-size: 6vmin;
+	border-radius: 100%;
+	border: 0;
+	padding: 0;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: background-color 0.3s;
+}
+
+button.pageturn:hover {
+	cursor: pointer;
+	background-color: #8080FF;
+	margin-top: 1.5px;
+}
+
+button.pageturn:active {
+	background-color: #8080AA;
+	margin-top: 3px;
+}
+
+button.pageturn:focus {
+	outline: none;
+}
+
+button#pageleft {
+	float: left;
+	margin-left: 1%;
+}
+
+button#pageright {
+	float: right;
+	margin-right: 1%
+}
+
+#pageindicators {
+	height: 7vmin;
+	margin: auto;
+	float: left;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+#pageindicators div {
+	float: left;
+	border-radius: 100%;
+	margin-left: 3px;
+	border: 1px solid black;
+	width: 7px;
+	height: 7px;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#pageindicators .currentpage {
+	background-color: #CC4040;
+}

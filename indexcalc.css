@@ -1,11 +1,3 @@
-.calc {
-	display: none; 
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
 @media (orientation: landscape) {
 	.buttons {
 		width: 100%;
@@ -22,6 +14,13 @@
 	height: calc(100% - 60px);
 	width: 100%;
 	margin-top: 60px;
+	display: none; 
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #container-screen {
@@ -55,21 +54,15 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: color 0.3s;
 }
 
 #screen:focus {
 	outline: none;
 }
 
-@keyframes calc-button-delete-hover {
-	from {color: white;}
-	to {color: #FF8080;}
-}
-
 #calc-button-delete:hover {
 	cursor: pointer;
-	animation-name: calc-button-delete-hover;
-	animation-duration: 0.3s;
 	color: #FF8080;
 }
 
@@ -117,16 +110,10 @@ button.calc {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-@keyframes button-hover {
-	from {background-color: white;}
-	to {background-color: #F0F0F0;}
+	transition: background-color 0.3s;
 }
 
 button.calc:hover {
-	animation-name: button-hover;
-	animation-duration: 0.3s;
 	cursor: pointer;
 	background-color: #F0F0F0;
 }
