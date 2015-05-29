@@ -97,6 +97,7 @@ function events() {
 
 
 	function calcButtonPress(event) {
+		calcInput.focus();
 		if (event.target.className == "calc") {
 			var content = event.target.innerHTML;
 			if (content == '=') {
@@ -118,6 +119,7 @@ function events() {
 			else
 				calcInput.value = calcInput.value + content;
 		}
+
 	}
 
 	function calcDeleteButtonPress() {
@@ -128,6 +130,7 @@ function events() {
 			calcInput.value = '0';
 			calcReady = false;
 		}
+		calcInput.focus();
 	}
 	
 	function displayCalc() {
@@ -178,6 +181,7 @@ function events() {
 			window.addEventListener("resize", resizeCalcButtons);
 			displayInfoButton.addEventListener("click", displayInfo);
 			_resizeCalcButtons();
+			calcInput.focus();
 		}
 	}
 
