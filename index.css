@@ -5,14 +5,10 @@ html, body {
 
 html {
 	height: 100%;
-	//width: 100%;
 }
 
 body {
-	font-family: 'Verdana';
-	//height: -webkit-max-content;
-	//height: -moz-max-content;
-	//height: max-content;
+	font-family: 'Trebuchet MS';
 }
 
 @media (orientation: portrait) {
@@ -33,9 +29,15 @@ body {
 	}
 }
 
+button {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
 #container-info {
 	width: 100%;
-	//height: 100%;
 	margin: auto;
 	margin-top: 75px;
 	overflow-x: hidden;
@@ -43,9 +45,8 @@ body {
 
 #pages {
 	width: 400%;
-	//height: 100%;
 	margin-top: 50px;
-	//border: 1px solid black;
+	font-weight: 100;	
 }
 
 #pages::after {
@@ -58,23 +59,20 @@ body {
 	height: 100%;
 	width: calc(100% / 4);
 	font-size: 1.37em;
-	//border: 1px solid black;
 }
 
-#page1 {
-	text-align: center;
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 100;
 }
 
-#page2 {
-	text-align: center;
-}
-
-#page3 {
+#page1, #page2, #page3 {
 	text-align: center;
 }
 
 #page1 h1 {
-	font-size: 15vmin;
+	font-family: "Trebuchet MS";
+	color: #222;
+	font-size: 13vmin;
 }
 
 #page4 h2 {
@@ -90,14 +88,16 @@ h2 {
 }
 
 #page4 img {
-	max-width: 50%;
+	max-width: 100%;
 	height: auto;
 }
 
 .container-text {
 	margin: auto;
 	width: calc(100% - 40vmin);
-	background-color: rgba(198, 172, 116, 1);
-	padding: 4vmin;
+	//background-color: rgba(198, 172, 116, 1);
+	background-color: #9898FF;
+	color: #222;
+	padding: 4vmin 6vmin 4vmin 6vmin;
 	border-radius: 3px;
 }

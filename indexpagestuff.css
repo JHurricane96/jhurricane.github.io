@@ -86,8 +86,18 @@ button#pageright {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
+	transition: background-color 0.2s;
 }
 
 #pageindicators .currentpage {
+	background-color: #CC4040;
+}
+
+#pageindicators div:hover {
+	cursor: pointer;
+	background-color: #CC8080;
+}
+
+#pageindicators div.currentpage:hover {
 	background-color: #CC4040;
 }
