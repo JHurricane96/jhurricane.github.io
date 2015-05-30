@@ -55,6 +55,7 @@
 	justify-content: center;
 	align-items: center;
 	transition: color 0.3s;
+	transition: height 0.1s;
 }
 
 #screen:focus {
@@ -114,6 +115,7 @@ button.calc {
 	justify-content: center;
 	align-items: center;
 	transition: background-color 0.3s;
+	transition: padding-top 0.1s;
 }
 
 button.calc:hover {
