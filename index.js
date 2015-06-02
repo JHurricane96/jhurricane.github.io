@@ -27,8 +27,39 @@ function events() {
 	var calcButtonsResized = false;
 	var calcInput = document.querySelector('#screen');
 	var calcEqualsButton = document.querySelector('#calc-button-equals');
+	var calcInverseButton = document.querySelector('button#inverse')
+	var calcAnswer = 0;
 	var calcReady = true;
 	var calcDeleteButtonState = 'backspace';
+	var calcMode = 'deg';
+
+	function initCalcOps() {
+		var calcOperators = [];
+		function Operator(value, arity, precedence) {
+			this.value = value;
+			this.arity = arity;
+			this.precedence = precedence;
+		}
+		calcOperators['*'] = new Operator('*', 2, 1);
+		calcOperators['/'] = new Operator('/', 2, 1);
+		calcOperators['-'] = new Operator('-', 2, 0);
+		calcOperators['+'] = new Operator('+', 2, 0);
+		calcOperators['u+'] = new Operator('+', 1, 3);
+		calcOperators['u-'] = new Operator('-', 1, 3);
+		calcOperators['^'] = new Operator('Math.pow', 2, 2);
+		calcOperators['sin'] = new Operator('Math.sin', 1, 3);
+		calcOperators['cos'] = new Operator('Math.cos', 1, 3);
+		calcOperators['tan'] = new Operator('Math.tan', 1, 3);
+		calcOperators['asin'] = new Operator('Math.asin', 1, 3);
+		calcOperators['acos'] = new Operator('Math.acos', 1, 3);
+		calcOperators['atan'] = new Operator('Math.atan', 1, 3);
+		calcOperators['log'] = new Operator('2.303*Math.log', 1, 3);
+		calcOperators['ln'] = new Operator('Math.log', 1, 3);
+		calcOperators['!'] = new Operator('calcFactorial', 1, 3);
+		calcOperators['\u221A'] = new Operator('Math.sqrt', 1, 3);
+		return calcOperators;
+	}
+	var calcOperators = initCalcOps();
 
 	function calcInit() {
 		if (!calcReady) {
@@ -67,7 +98,7 @@ function events() {
 	}
 
 	function calcKeyboardInput(event) {
-		if (!(/[0-9*+-\/()]{1}/.test(String.fromCharCode(event.charCode)))) {
+		if (!(/[0-9*+-\/()!^]{1}/.test(String.fromCharCode(event.charCode)))) {
 			event.preventDefault();
 			if (event.charCode == 13)
 				calcCalculateExp(calcInput.value);
@@ -76,20 +107,214 @@ function events() {
 			calcInit();
 	}
 
+	function calcFactorial(n) {
+		if (n != Math.floor(n) || n<0)
+			throw new Error('! needs integer');
+		else if (n == 0)
+			return 1;
+
+		var i, ans = 1;
+		for (i = 2; i<=n; ++i)
+			ans *= i;
+		return ans;
+	}
+
+	function parseCalcInput(expr) {
+		var exprLength = expr.length;
+		var state = 'number/unary';
+		var startFrom = 0;
+		var curChar;
+		var unarySignAllowed = true;
+		var object = '';
+		var exprParsed = [];
+		var numTest = /\d+[.]?\d*|[.]\d+/g;
+
+		while (startFrom < expr.length) {
+			curChar = expr[startFrom];
+
+			if (curChar == '(' || curChar == ')') {
+				if (state == 'unary') {
+					if (curChar == ')' || !calcOperators[object])
+						throw new Error('Bracket mismatch');
+					else if (calcOperators[object]) {
+						exprParsed.push(object);
+						object = '';
+						state = 'number/unary';
+					}
+				}
+				exprParsed.push(curChar)
+				startFrom++;
+			}
+
+			else if (state == 'binary') {
+				if (curChar == '!') {
+					var length = exprParsed.length;
+					exprParsed[length] = exprParsed[length - 1];
+					exprParsed[length - 1] = '!';
+				}
+				else if (calcOperators[curChar].arity == '2') {
+					exprParsed.push(curChar);
+					unarySignAllowed = true;
+					state = 'number/unary';
+				}
+				else
+					throw new Error('Syntax error');
+				startFrom++;
+			}
+
+			else if (state == 'number/unary' || state == 'unary') {
+				if (unarySignAllowed) {
+					if (curChar == '+') {
+						exprParsed.push('u+');
+						startFrom++;
+						unarySignAllowed = false;
+						curChar = expr[startFrom];
+					}
+					else if (curChar == '-') {
+						exprParsed.push('u-');
+						startFrom++;
+						unarySignAllowed = false;
+						curChar = expr[startFrom];
+					}
+				}
+				if (state == 'number/unary') {
+					if (/[\d.]/.test(curChar)) {
+						numTest.lastIndex = startFrom;
+						object = numTest.exec(expr)[0];
+						startFrom = numTest.lastIndex;
+						exprParsed.push(object);
+						object = '';
+						state = 'binary';
+					}
+					else if (curChar == '\u03C0') {
+						exprParsed.push('Math.PI');
+						startFrom++;
+						state = 'binary';
+					}
+					else if (curChar == 'e') {
+						exprParsed.push('Math.E');
+						startFrom++;
+						state = 'binary';
+					}
+					else {
+						object += curChar;
+						startFrom++;
+						state = 'unary';
+					}
+				}
+				else if (state == 'unary') {
+					object += curChar;
+					if (object.length >= 5)
+						throw new Error('Syntax error');
+					startFrom++;
+				}
+			}
+		}
+		return exprParsed;
+	}
+
+	function calcExprToRPN(expr) {
+		var exprRPN = [];
+		var opStack = [];
+
+		expr.forEach(function (term) {
+			if (!calcOperators[term] && term != ')' && term != '(')
+				exprRPN.push(term);
+			else {
+				if (term == '(')
+					opStack.push(term);
+				else if (term == ')') {
+					while(opStack[opStack.length-1]!='(') {
+						if (opStack.length == 0)
+							throw new Error('Syntax error');
+						exprRPN.push(opStack.pop());
+					}
+					opStack.pop();
+				}
+				else {
+					while(opStack.length > 0 && opStack[opStack.length-1] != '(') {
+						if (calcOperators[term].precedence > calcOperators[opStack[opStack.length-1]].precedence)
+							break;
+						exprRPN.push(opStack.pop());
+					}
+					opStack.push(term);
+				}
+			}
+		});
+
+		while(opStack.length > 0) {
+			if (opStack[opStack.length-1] == '(' || opStack[opStack.length-1] == ')')
+				throw new Error('Bracket mismatch');
+			else if (opStack[opStack.length-1].arity == 'binary')
+				throw new Error('Syntax error');
+			exprRPN.push(opStack.pop());
+		}
+		return exprRPN;
+	}
+
+	function calcEvalRPN(expr) {
+		var a, b;
+		var answer = [];
+		expr.forEach(function (term) {
+			if (!calcOperators[term])
+				answer.push(term);
+			else {
+				if (calcOperators[term].arity == 2) {
+					if (answer.length >= 2) {
+						b = answer.pop();
+						a = answer.pop();
+						if (term == '^')
+							answer.push(eval(calcOperators[term].value + '(' + a + ',' + b + ')'));
+						else
+							answer.push(eval(a + calcOperators[term].value + b));
+					}
+					else
+						throw new Error('Syntax error');
+				}
+				else if (calcOperators[term].arity == 1) {
+					if (answer.length >= 1) {
+						a = answer.pop();
+						if (/asin|acos/.test(term) && (a > 1 || a < -1))
+							throw new Error('Out of domain');
+						if (/sin|cos|tan/.test(term) && calcMode == 'deg') {
+							if (/pressed/.test(calcInverseButton.className))
+								answer.push(eval(calcOperators[term].value + '(' + a + ')' + '*180/Math.PI'));
+							else
+								answer.push(eval(calcOperators[term].value + '(' + a + '*Math.PI/180'+ ')'));
+						}
+						else
+							answer.push(eval(calcOperators[term].value + '(' + a + ')'));
+					}
+					else
+						throw new Error('Syntax error');
+				}
+			}
+		});
+		if (answer.length > 1)
+			throw new Error('Syntax error');
+		else
+			return answer[0];
+	} 
+
 	function calcCalculateExp(expr) {
 		try {
-			var answer;
-			expr = expr.replace(/sin/g, 'Math.sin');
-			expr = expr.replace(/cos/g, 'Math.cos');
-			expr = expr.replace(/tan/g, 'Math.tan');
-			answer = eval(expr);
+			var exprParsed =  parseCalcInput(expr);
+			console.log(exprParsed);
+			var exprRPN = calcExprToRPN(exprParsed);
+			console.log(exprRPN);
+			var answer = calcEvalRPN(exprRPN);
+			console.log(answer);
 			if(answer||answer===0) {
-				calcInput.value = answer;
+				if (/e/.test(String(answer))) {
+					var parts = String(answer).match(/-?[\d.]+/g);
+					answer = String(parseFloat(parts[0]).toFixed(6)) + '*(10^(' + parts[1] + '))';
+				}
+				calcInput.value = calcAnswer = answer;
 			}
 			else if (expr!=='')
-				throw new Error();
+				throw new Error('Syntax error');
 			} catch (error) {
-				calcInput.value = "Syntax error";
+				calcInput.value = String(error).slice(7);
 				calcReady = false;
 		}
 		calcDeleteButtonState = 'everything';
@@ -98,24 +323,83 @@ function events() {
 
 	function calcButtonPress(event) {
 		calcInput.focus();
-		if (event.target.className == "calc") {
+		if (/calc/.test(event.target.className)) {
 			var content = event.target.innerHTML;
 			if (content == '=') {
 				calcCalculateExp(calcInput.value);
 				return;
 			}
+
+			if (content == 'deg') {
+				if (!/pressed/.test(event.target.className)) {
+					calcMode = 'deg';
+					event.target.className += ' pressed';
+					document.querySelector('button.calc#rad').className = document.querySelector('button.calc#rad').className.replace(/ pressed/, '');	
+				}
+				return;
+			}
+
+			else if (content == 'rad') {
+				if (!/pressed/.test(event.target.className)) {
+					calcMode = 'rad';
+					event.target.className += ' pressed';
+					document.querySelector('button.calc#deg').className = document.querySelector('button.calc#deg').className.replace(/ pressed/, '');
+				}
+				return;
+			}
+
+			else if (content == 'Inv') {
+				if (!/pressed/.test(event.target.className))
+					event.target.className += ' pressed';
+				else
+					calcInverseButton.className = calcInverseButton.className.replace(/ pressed/, '');
+
+				var calcShown = document.querySelectorAll('button.calc.invertible');
+				var calcToShow = document.querySelectorAll('button.calc.inverse');
+
+				Array.prototype.forEach.call(calcShown, function (elt) {
+					elt.className = elt.className.replace('invertible', 'inverse');
+				});
+				Array.prototype.forEach.call(calcToShow, function (elt) {
+					elt.className = elt.className.replace('inverse', 'invertible');
+				});
+				_resizeCalcButtons();
+				return;
+			}
+
 			calcInit();
-			if (content == '\u00D7')
+			if (content == 'ans')
+				calcInput.value = calcInput.value + calcAnswer;
+			else if (content == '\u00D7')
 				calcInput.value = calcInput.value + '*';
 			else if (content == '\u00F7')
-				calcInput.value = calcInput.value + '/'
+				calcInput.value = calcInput.value + '/';
 			else if (content == 'sin')
 				calcInput.value = calcInput.value + 'sin(';
 			else if (content == 'cos')
 				calcInput.value = calcInput.value + 'cos(';
 			else if (content == 'tan')
 				calcInput.value = calcInput.value + 'tan(';
-			
+			else if (content == 'asin')
+				calcInput.value = calcInput.value + 'asin(';
+			else if (content == 'acos')
+				calcInput.value = calcInput.value + 'acos(';
+			else if (content == 'atan')
+				calcInput.value = calcInput.value + 'atan(';
+			else if (content == 'ln')
+				calcInput.value = calcInput.value + 'ln(';
+			else if (content == 'e<sup>x</sup>')
+				calcInput.value = calcInput.value + 'e^';
+			else if (content == 'log')
+				calcInput.value = calcInput.value + 'log(';
+			else if (content == '10<sup>x</sup>')
+				calcInput.value = calcInput.value + '10^';
+			else if (content == 'x<sup>2</sup>')
+				calcInput.value = calcInput.value + '^2';	
+			else if (content == 'x<sup>y</sup>')
+				calcInput.value = calcInput.value + '^';
+			else if (content == '\u221Ax')
+				calcInput.value = calcInput.value + '\u221A(';
 			else
 				calcInput.value = calcInput.value + content;
 		}
