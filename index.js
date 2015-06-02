@@ -53,7 +53,7 @@ function events() {
 		calcOperators['asin'] = new Operator('Math.asin', 1, 3);
 		calcOperators['acos'] = new Operator('Math.acos', 1, 3);
 		calcOperators['atan'] = new Operator('Math.atan', 1, 3);
-		calcOperators['log'] = new Operator('2.303*Math.log', 1, 3);
+		calcOperators['log'] = new Operator('Math.log10', 1, 3);
 		calcOperators['ln'] = new Operator('Math.log', 1, 3);
 		calcOperators['!'] = new Operator('calcFactorial', 1, 3);
 		calcOperators['\u221A'] = new Operator('Math.sqrt', 1, 3);
@@ -330,7 +330,7 @@ function events() {
 				return;
 			}
 
-			if (content == 'deg') {
+			if (content == 'Deg') {
 				if (!/pressed/.test(event.target.className)) {
 					calcMode = 'deg';
 					event.target.className += ' pressed';
@@ -339,7 +339,7 @@ function events() {
 				return;
 			}
 
-			else if (content == 'rad') {
+			else if (content == 'Rad') {
 				if (!/pressed/.test(event.target.className)) {
 					calcMode = 'rad';
 					event.target.className += ' pressed';
@@ -368,7 +368,7 @@ function events() {
 			}
 
 			calcInit();
-			if (content == 'ans')
+			if (content == 'Ans')
 				calcInput.value = calcInput.value + calcAnswer;
 			else if (content == '\u00D7')
 				calcInput.value = calcInput.value + '*';
