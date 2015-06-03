@@ -276,6 +276,8 @@ function events() {
 						a = answer.pop();
 						if (/asin|acos/.test(term) && (a > 1 || a < -1))
 							throw new Error('Out of domain');
+						if (/log|ln/.test(term) && a < 0)
+							throw new Error('Out of domain');
 						if (/sin|cos|tan/.test(term) && calcMode == 'deg') {
 							if (/pressed/.test(calcInverseButton.className))
 								answer.push(eval(calcOperators[term].value + '(' + a + ')' + '*180/Math.PI'));
