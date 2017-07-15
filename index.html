@@ -1,121 +1,68 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-  <head>
-  	<meta charset="UTF-8" />
-  	<meta name="viewport" content="width=device-width, initial-scale=1" />
-  	<link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="indexheader.css" />
-    <link rel="stylesheet" href="indexpagestuff.css" />
-    <link rel="stylesheet" href="indexcalc.css" />
-    <title>Arun Ramachandran</title>
-  </head>
-  <body>
-  	<header id="header">
-  		<span id="header-name">Arun's Page</span>
-  		<div id="button-info" class="button-header"><img class="header-button" src="tab-text.png" /></div>
-  		<div id="button-calc" class="button-header"><img class="header-button" src="tab-calc.png" /></div>
-  	</header>
-    <div id="container-info" class="info">
-      <header id="container-pagebuttons">
-        <button id="pageleft" class="pageturn">&lt;</button>
-        <button id="pageright" class="pageturn">&gt;</button>
-      </header>
-      <div id="pageindicators">
-        <div id="pageindicator1" class="currentpage"></div>
-        <div id="pageindicator2"></div>
-        <div id="pageindicator3"></div>
-        <div id="pageindicator4"></div>
-      </div>
-      <div id="pages">
-        <div id="page1" class="container-page">
-          <h1>Welcome to my world of depravity!</h1>
-        </div>
-        <div id="page2" class="container-page">
-          <div class="container-text">
-            <h2>Hello, it's nice to meet you!</h2>
-            <p>There's nothing I love more than the sound of my own voice, even figuratively speaking. Especially figuratively speaking.</p><br>
-            <p>Because you can't interrupt me now. Nothing, short of closing this window, can shield you from the depravity oozing from my words.</p><br>
-            <p>And you can't close this window. Not until you're done evaluating my work, depraved as it is. So sit back, and prepare yourselves for mind-numbing nonsense capable of leaving even the stoutest of minds reeling with shock.</p>
-          </div>
-        </div>
-        <div id="page3" class="container-page">
-          <div class="container-text">
-          	<h2>'Mercy!', I hear you scream.</h2><br>
-            <h3>Fear not, then. Mercy you shall have.</h3>
-          </div>
-        </div>
-        <div id="page4" class="container-page">
-          <div class="container-text">
-            <h2>Personal Particulars</h2>
-            <p><span class="field">Name: </span>Arun</p>
-            <p><span class="field">Department: </span>CSE</p>
-            <p><span class="field">Likes: </span>Writing, Coding, Football, Penguins.</p>
-            <p><span class="field">Dislikes: </span>Noobs. Look below for examples of noobery:</p>
-            <img src="Noob.gif" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="container-calc">
-      <div id="container-screen">
-        <input id="screen" type="text"></input>
-        <div id="calc-button-delete">&lArr;</div>
-      </div>
-      <div id="container-buttons">
-        <table class="buttons normal">
-          <tr>
-            <td><button class="calc">7</button></td>
-            <td><button class="calc">8</button></td>
-            <td><button class="calc">9</button></td>
-            <td><button class="calc">&divide;</button></td>
-          </tr>
-          <tr>
-            <td><button class="calc">4</button></td>
-            <td><button class="calc">5</button></td>
-            <td><button class="calc">6</button></td>
-            <td><button class="calc">&times;</button></td>
-          </tr>
-          <tr>
-            <td><button class="calc">1</button></td>
-            <td><button class="calc">2</button></td>
-            <td><button class="calc">3</button></td>
-            <td><button class="calc">-</button></td>
-          </tr>
-          <tr>
-            <td><button class="calc">.</button></td>
-            <td><button class="calc">0</button></td>
-            <td><button id="calc-button-equals" class="calc">=</button></td>
-            <td><button class="calc">+</button></td>
-          </tr>
-        </table>
-        <table class="buttons science">
-          <tr>
-            <td><button class="calc smaller-text invertible">sin</button><button class="calc smaller-text inverse">asin</button></td>
-            <td><button class="calc smaller-text invertible">cos</button><button class="calc smaller-text inverse">acos</button></td>
-            <td><button id="deg" class="calc smaller-text pressed">Deg</button></td>
-            <td><button id="rad" class="calc smaller-text">Rad</button></td>
-          </tr>
-          <tr>
-            <td><button class="calc smaller-text invertible">tan</button><button class="calc smaller-text inverse">atan</button></td>
-            <td><button class="calc smaller-text invertible">log</button><button class="calc smaller-text inverse">10<sup>x</sup></button></td>
-            <td><button class="calc smaller-text invertible">ln</button><button class="calc smaller-text inverse">e<sup>x</sup></button></td>
-            <td><button class="calc smaller-text invertible">x<sup>2</sup></button><button class="calc smaller-text inverse">&radic;x</td>
-          </tr>
-          <tr>
-            <td><button class="calc smaller-text">e</button></td>
-            <td><button class="calc smaller-text">&pi;</button></td>
-            <td><button class="calc smaller-text">x<sup>y</sup></button></td>
-            <td><button class="calc">!</button></td>
-          </tr>
-          <tr>
-            <td><button id="inverse" class="calc smaller-text">Inv</button></td>
-            <td><button class="calc smaller-text">Ans</button></td>
-            <td><button class="calc smaller-text">(</button></td>
-            <td><button class="calc smaller-text">)</button></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <script src="index.js"></script>
-  </body>
+	<head>
+		<title>Arun Ramachandran</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body id="top">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="javascript:void(0)" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+					<h1><strong><span class="custom-lighter">Arun Ramachandran</span></strong><br />
+					<span class="custom-lightest">Programmer Dude</span><br /></h1>
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- One -->
+					<section id="one">
+						<div class="align-left">
+						<header class="major">
+							<h2>Hello, World!</h2>
+						</header>
+						<p>I'm Arun, an aspiring programmer who aims to change the world with software, or so I tell myself right before spending the rest of the day on Reddit.</p>
+						<p>I love constantly learning and making new things and pushing myself to expand my horizons. I'm very interested in the areas of artificial intelligence, game development and low-level systems.</p>
+						<p>In my spare time, I dabble around in the art of losing a lot of <a href="http://pokemonshowdown.com/" target="blank">Pokémon Showdown</a> games. I'm an also avid reader of fantasy and have recently begun my foray into sci-fi.</p>
+						<p>I'm currently doing my undergrad in Computer Science and Engineering at <a href="https://www.nitt.edu/" target="blank">NIT Trichy</a>.</p>
+						<p>Check out my resume <a href="resume.pdf" target="blank">here</a>.</p>
+						</div>
+					</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<li><a href="https://github.com/jhurricane96" class="icon fa-github" target="blank"><span class="label">Github</span></a></li>
+						<li><a href="https://www.linkedin.com/in/aramach/" class="icon fa-linkedin" target="blank"><span class="label">LinkedIn</span></a></li>
+						<li><a href="resume.pdf" class="icon fa-file-text" target="blank"><span class="label">Resume</span></a></li>
+						<li><a href="mailto:ramachandran.arun@outlook.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						&copy; 2017 Arun Ramachandran
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>
