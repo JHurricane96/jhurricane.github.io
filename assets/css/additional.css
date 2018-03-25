@@ -13,3 +13,7 @@ a.icon.fa-linkedin:hover {
 a.icon.fa-file-pdf-o:hover {
 	color: red !important;
 }
+
+a.icon.fa-envelope-o:hover {
+	color: white !important;
+}
