@@ -1,0 +1,15 @@
+a.icon.fa-github:hover {
+	color: black !important;
+}
+
+a.icon.fa-medium:hover {
+	color: #029e74 !important;
+}
+
+a.icon.fa-linkedin:hover {
+	color: #0077B5 !important;
+}
+
+a.icon.fa-file-pdf-o:hover {
+	color: red !important;
+}
