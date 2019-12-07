@@ -10,6 +10,10 @@ a.icon.fa-linkedin:hover {
 	color: #0077B5 !important;
 }
 
+a.icon.fa-twitter:hover {
+	color: #1da0f2 !important;
+}
+
 a.icon.fa-file-text:hover {
 	color: #f33 !important;
 }
