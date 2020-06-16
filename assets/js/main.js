@@ -39,6 +39,11 @@
 				$body.removeClass('is-loading');
 			});
 
+		// Add copyright end year
+			$(document).ready(function() {
+				$('#copyright-end-year').text((new Date()).getYear().toString().slice(-2));
+			});
+
 		// Touch?
 			if (skel.vars.mobile) {
 
