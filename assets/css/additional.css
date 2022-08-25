@@ -21,3 +21,12 @@ a.icon.fa-file-text:hover {
 a.icon.fa-envelope:hover {
 	color: white !important;
 }
+
+a.ai-google-scholar:hover {
+	color: #4285f4 !important;
+}
+
+a.ai-google-scholar {
+	border: 0;
+	font-size: 1.6em;
+}
